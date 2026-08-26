@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nutra Hair Care | Pure Botanical Oils</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --olive-dark: #2C3E25;
+      --olive-primary: #4A6B3D;
+      --olive-light: #8FA87F;
+      --wood-dark: #3D2314;
+      --wood-medium: #5C3A21;
+      --cream-bg: #F7F5F0;
+      --white: #FFFFFF;
+      --shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
+    body { background-color: var(--cream-bg); color: #333; line-height: 1.6; }
+
+    /* Wooden Header & Navigation */
+    header {
+      background: linear-gradient(rgba(61, 35, 20, 0.9), rgba(61, 35, 20, 0.9)), 
+                  url('https://images.unsplash.com/photo-1546484475-7f7bd55792da?auto=format&fit=crop&w=1000&q=80') center/cover;
+      color: var(--white);
+      padding: 1rem 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    }
+    .nav-container { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+    .logo { font-family: 'Playfair Display', serif; font-size: 1.8rem; font-weight: 700; color: #E2D4B7; text-decoration: none; }
+    .nav-links button { background: none; border: none; color: var(--white); font-weight: 600; margin-left: 1.5rem; cursor: pointer; transition: 0.3s; }
+    .nav-links button:hover { color: var(--olive-light); }
+    .btn-admin { background-color: var(--olive-primary) !important; padding: 0.5rem 1rem; border-radius: 20px; }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, rgba(44, 62, 37, 0.85), rgba(74, 107, 61, 0.75)),
+                  url('https://images.unsplash.com/photo-1608248597263-0057e40889c2?auto=format&fit=crop&w=1200&q=80') center/cover;
+      color: var(--white);
+      text-align: center;
+      padding: 5rem 1rem;
+    }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 1rem; }
+    .hero p { font-size: 1.1rem; max-width: 600px; margin: 0 auto 2rem; color: #E8EFE5; }
+
+    /* Product Section */
+    .container { max-width: 1200px; margin: 3rem auto; padding: 0 1rem; }
+    .section-title { font-family: 'Playfair Display', serif; text-align: center; font-size: 2.2rem; color: var(--olive-dark); margin-bottom: 2rem; }
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+    
+    .product-card {
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border-bottom: 4px solid var(--wood-medium);
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+    .product-card:hover { transform: translateY(-5px); }
+    .product-img { width: 100%; height: 260px; object-fit: cover; }
+    .product-info { padding: 1.5rem; }
+    .product-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--wood-dark); }
+    .product-desc { font-size: 0.85rem; color: #666; margin: 0.5rem 0 1rem; }
+    .product-price { font-weight: 700; color: var(--olive-primary); font-size: 1.2rem; }
+    
+    .badge-sold-out {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      background: #C0392B;
+      color: white;
+      padding: 0.3rem 0.8rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .btn-buy {
+      width: 100%;
+      background: var(--olive-primary);
+      color: white;
+      border: none;
+      padding: 0.75rem;
+      margin-top: 1rem;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .btn-buy:disabled { background: #ccc; cursor: not-allowed; }
+
+    /* Admin Panel Overlay */
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; }
+    .modal-content { background: white; padding: 2rem; border-radius: 12px; width: 90%; max-width: 500px; box-shadow: var(--shadow); border-top: 6px solid var(--olive-primary); }
+    .modal h2 { font-family: 'Playfair Display', serif; color: var(--wood-dark); margin-bottom: 1.5rem; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.6rem; border: 1px solid #ddd; border-radius: 6px; }
+    .modal-actions { display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1.5rem; }
+    .btn-secondary { background: #777; color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; }
+    .btn-primary { background: var(--olive-primary); color: white; border: none; padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; }
+
+    footer { background: var(--wood-dark); color: #D1C7BD; text-align: center; padding: 2rem; margin-top: 4rem; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="logo">Nutra Hair Care</a>
+      <div class="nav-links">
+        <button onclick="scrollToProducts()">Products</button>
+        <button class="btn-admin" onclick="toggleModal('loginModal')">Admin Login</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1>100% Pure Botanical Hair Oils</h1>
+    <p>Nourish your hair naturally with authentic botanical extractions crafted in Pakistan.</p>
+  </section>
+
+  <!-- Main Storefront Catalog -->
+  <div class="container" id="products">
+    <h2 class="section-title">Our Premium Selection</h2>
+    <div class="product-grid" id="productGrid"></div>
+  </div>
+
+  <!-- Admin Login Modal -->
+  <div class="modal" id="loginModal">
+    <div class="modal-content">
+      <h2>Admin Authentication</h2>
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" id="loginEmail" placeholder="sehrishb007@gmail.com">
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" id="loginPassword" placeholder="••••••••">
+      </div>
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="toggleModal('loginModal')">Cancel</button>
+        <button class="btn-primary" onclick="handleLogin()">Login</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Product Upload Modal -->
+  <div class="modal" id="adminModal">
+    <div class="modal-content">
+      <h2>Manage Inventory</h2>
+      <form id="addProductForm" onsubmit="handleAddProduct(event)">
+        <div class="form-group">
+          <label>Oil Name</label>
+          <input type="text" id="pName" required placeholder="e.g. Pure Herbal Hair Growth Oil">
+        </div>
+        <div class="form-group">
+          <label>Price (PKR)</label>
+          <input type="number" id="pPrice" required placeholder="1850">
+        </div>
+        <div class="form-group">
+          <label>Image URL</label>
+          <input type="url" id="pImg" required placeholder="Paste image address link here">
+        </div>
+        <div class="form-group">
+          <label>Availability Status</label>
+          <select id="pStatus">
+            <option value="available">In Stock</option>
+            <option value="soldout">Sold Out</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Description</label>
+          <textarea id="pDesc" rows="3" placeholder="Key ingredients and benefits..."></textarea>
+        </div>
+        <div class="modal-actions">
+          <button type="button" class="btn-secondary" onclick="toggleModal('adminModal')">Close</button>
+          <button type="submit" class="btn-primary">Add Product</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2026 Nutra Hair Care. All Rights Reserved. | Pakistan</p>
+  </footer>
+
+  <script>
+    // Initial Stock Data
+    let inventory = [
+      {
+        id: 1,
+        name: "Botanical Olive & Rosemary Hair Oil",
+        price: 1850,
+        image: "https://images.unsplash.com/photo-1608248597263-0057e40889c2?auto=format&fit=crop&w=600&q=80",
+        description: "Cold-pressed olive oil infused with organic rosemary extracts for scalp stimulation.",
+        status: "available"
+      },
+      {
+        id: 2,
+        name: "Intense Nourishing Herbal Blend",
+        price: 2400,
+        image: "https://images.unsplash.com/photo-1546484475-7f7bd55792da?auto=format&fit=crop&w=600&q=80",
+        description: "Traditional herbal concoction designed to reduce hair breakage and add natural shine.",
+        status: "soldout"
+      }
+    ];
+
+    // Render Products to Front-End
+    function renderProducts() {
+      const grid = document.getElementById('productGrid');
+      grid.innerHTML = '';
+
+      inventory.forEach(item => {
+        const isSoldOut = item.status === 'soldout';
+        const cardHtml = `
+          <div class="product-card">
+            ${isSoldOut ? '<span class="badge-sold-out">Sold Out</span>' : ''}
+            <img src="${item.image}" class="product-img" alt="${item.name}">
+            <div class="product-info">
+              <h3 class="product-title">${item.name}</h3>
+              <p class="product-desc">${item.description}</p>
+              <div class="product-price">PKR ${item.price.toLocaleString()}</div>
+              <button class="btn-buy" ${isSoldOut ? 'disabled' : ''}>
+                ${isSoldOut ? 'Out of Stock' : 'Order Now'}
+              </button>
+            </div>
+          </div>
+        `;
+        grid.innerHTML += cardHtml;
+      });
+    }
+
+    // Modal Control Helper
+    function toggleModal(id) {
+      const modal = document.getElementById(id);
+      modal.style.display = modal.style.display === 'flex' ? 'none' : 'flex';
+    }
+
+    // Admin Credentials Authentication
+    function handleLogin() {
+      const email = document.getElementById('loginEmail').value;
+      const pass = document.getElementById('loginPassword').value;
+
+      if(email === 'sehrishb007@gmail.com' && pass === 'admin123') {
+        alert('Authentication Successful! Welcome to Nutra Hair Care Control Panel.');
+        toggleModal('loginModal');
+        toggleModal('adminModal');
+      } else {
+        alert('Invalid Email or Password.');
+      }
+    }
+
+    // Admin Product Add Action
+    function handleAddProduct(event) {
+      event.preventDefault();
+      const newProduct = {
+        id: Date.now(),
+        name: document.getElementById('pName').value,
+        price: Number(document.getElementById('pPrice').value),
+        image: document.getElementById('pImg').value,
+        description: document.getElementById('pDesc').value,
+        status: document.getElementById('pStatus').value
+      };
+
+      inventory.unshift(newProduct);
+      renderProducts();
+      document.getElementById('addProductForm').reset();
+      toggleModal('adminModal');
+      alert('Product successfully published to storefront!');
+    }
+
+    function scrollToProducts() {
+      document.getElementById('products').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Initial Execution
+    renderProducts();
+  </script>
+</body>
+</html>
