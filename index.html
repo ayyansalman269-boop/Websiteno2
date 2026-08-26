@@ -21,11 +21,10 @@
 
     /* Header & Navigation */
     header {
-      background: var(--pure-white);
-      padding: 1rem 2rem;
+      background: var(--pure-white); padding: 1rem 2rem;
       position: sticky; top: 0; z-index: 100;
       box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      display: flex; justify-content: space-between; align-items: center;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
     }
     .brand { font-size: 1.8rem; font-weight: 700; color: var(--accent-pink); letter-spacing: 1px; }
     .nav-actions { display: flex; gap: 1rem; align-items: center; }
@@ -50,12 +49,17 @@
       background: var(--pure-white); border-radius: 12px;
       overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column;
     }
-    .card img { width: 100%; height: 240px; object-fit: cover; background: var(--gray-light); }
+    .card-img-wrapper { position: relative; cursor: pointer; height: 260px; background: var(--gray-light); }
+    .card img { width: 100%; height: 100%; object-fit: cover; }
+    .badge-count {
+      position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.6);
+      color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem;
+    }
     .card-body { padding: 1rem; display: flex; flex-direction: column; flex-grow: 1; }
     .card-title { font-size: 1.1rem; margin-bottom: 0.4rem; color: var(--text-dark); }
     .card-price { font-weight: 700; color: var(--accent-pink); font-size: 1.2rem; margin-bottom: 0.8rem; }
     .shades-label { font-size: 0.8rem; text-transform: uppercase; color: #888; margin-bottom: 0.4rem; }
-    .shades-container { display: flex; gap: 0.4rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .shades-container { display: flex; gap: 0.4rem; margin-bottom: 1rem; flex-wrap: wrap; max-height: 60px; overflow-y: auto; }
     .shade-swatch {
       width: 24px; height: 24px; border-radius: 50%; border: 2px solid white;
       box-shadow: 0 0 3px rgba(0,0,0,0.3); cursor: pointer; transition: 0.1s;
@@ -75,18 +79,38 @@
     .metric-card h4 { font-size: 0.85rem; color: #777; }
     .metric-card p { font-size: 1.5rem; font-weight: 700; color: var(--text-dark); margin-top: 0.2rem; }
 
-    /* Dynamic Forms & Modals */
+    /* Form Components */
     .form-group { margin-bottom: 1rem; }
     .form-group label { display: block; margin-bottom: 0.3rem; font-size: 0.9rem; font-weight: 600; }
     .form-control {
       width: 100%; padding: 0.6rem; border: 1px solid var(--primary-pink);
       border-radius: 6px; outline: none;
     }
+    .shade-input-row { display: flex; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; }
+    .color-picker { width: 40px; height: 38px; border: none; background: transparent; cursor: pointer; }
+
+    /* Modals & Swiper Lightbox */
     .modal-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center; z-index: 200;
+      background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 200;
     }
     .modal-content { background: white; padding: 2rem; border-radius: 12px; width: 340px; }
+    
+    /* Lightbox Gallery Styles */
+    .lightbox-content {
+      background: white; border-radius: 16px; width: 90%; max-width: 500px;
+      overflow: hidden; position: relative; display: flex; flex-direction: column; max-height: 90vh;
+    }
+    .swiper-container { position: relative; width: 100%; height: 350px; background: #000; }
+    .swiper-container img { width: 100%; height: 100%; object-fit: contain; }
+    .swiper-btn {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.7); border: none; border-radius: 50%;
+      width: 40px; height: 40px; cursor: pointer; font-size: 1.2rem; font-weight: bold;
+    }
+    .swiper-btn.left { left: 10px; }
+    .swiper-btn.right { right: 10px; }
+    .lightbox-body { padding: 1.5rem; overflow-y: auto; }
   </style>
 </head>
 <body>
@@ -94,20 +118,20 @@
   <header>
     <div class="brand">Hiba Beauty</div>
     <div class="nav-actions">
-      <input type="text" class="search-bar" id="searchInput" placeholder="Search catalog..." onkeyup="filterProducts()">
-      <button class="btn btn-outline" onclick="toggleCartModal()">Cart (<span id="cartCount">0</span>)</button>
+      <input type="text" class="search-bar" id="searchInput" placeholder="Search products..." onkeyup="filterProducts()">
+      <button class="btn btn-outline" onclick="alert('Items in Cart: ' + cart.length)">Cart (<span id="cartCount">0</span>)</button>
       <button class="btn btn-pink" onclick="handleAdminAuth()">Admin Portal</button>
     </div>
   </header>
 
   <div class="container">
-    <!-- Admin View -->
+    <!-- Admin Portal View -->
     <section class="admin-panel" id="adminPanel">
-      <h2>Store Performance & Product Management</h2>
+      <h2>Store Inventory & Admin Dashboard</h2>
       <div class="metrics-grid">
         <div class="metric-card">
           <h4>TOTAL CATALOG VALUE</h4>
-          <p id="metricRevenue">$0.00</p>
+          <p id="metricRevenue">Rs. 0</p>
         </div>
         <div class="metric-card">
           <h4>TOTAL PRODUCTS</h4>
@@ -115,35 +139,41 @@
         </div>
       </div>
 
-      <h3 style="margin-top: 1.5rem;">Add New Product</h3>
+      <h3 style="margin-top: 1.5rem;">Add New Product (e.g. USHAS Glitter)</h3>
       <form id="productForm" onsubmit="saveProduct(event)">
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
           <div class="form-group">
             <label>Product Title</label>
-            <input type="text" class="form-control" id="prodTitle" required placeholder="e.g. Velvet Rose Lipstick">
+            <input type="text" class="form-control" id="prodTitle" required placeholder="e.g. USHAS Glitter Palette">
           </div>
           <div class="form-group">
-            <label>Price ($)</label>
-            <input type="number" step="0.01" class="form-control" id="prodPrice" required placeholder="24.99">
+            <label>Price in PKR (Rs.)</label>
+            <input type="number" class="form-control" id="prodPrice" required placeholder="1500">
           </div>
         </div>
         
         <div class="form-group">
-          <label>Upload Image Directly From Device</label>
-          <input type="file" class="form-control" id="prodImage" accept="image/*" required>
+          <label>Select Multiple Images From Gallery (Hold Ctrl/Cmd or select multiple from phone)</label>
+          <input type="file" class="form-control" id="prodImages" accept="image/*" multiple required>
         </div>
 
         <div class="form-group">
-          <label>Shades Configuration (Name:HEX format, comma separated)</label>
-          <input type="text" class="form-control" id="prodShades" placeholder="Ruby:#d1001c, Rose Gold:#b76e79, Nude:#e3a896">
+          <label>Configure Product Shades</label>
+          <div id="shadeInputsContainer">
+            <div class="shade-input-row">
+              <input type="color" class="color-picker" value="#e75480">
+              <input type="text" class="form-control" placeholder="Shade Name (e.g. Shade 01)">
+            </div>
+          </div>
+          <button type="button" class="btn btn-outline" style="padding: 0.3rem 0.8rem; font-size: 0.85rem;" onclick="addShadeRow()">+ Add Another Shade</button>
         </div>
 
-        <button type="submit" class="btn btn-pink">Publish to Storefront</button>
+        <button type="submit" class="btn btn-pink" style="margin-top: 1rem;">Publish to Storefront</button>
       </form>
     </section>
 
-    <!-- Product Catalog View -->
-    <h2>Catalog Highlights</h2>
+    <!-- Product Catalog Grid -->
+    <h2>Our Cosmetic Range</h2>
     <div class="catalog" id="productGrid" style="margin-top: 1rem;"></div>
   </div>
 
@@ -159,28 +189,52 @@
     </div>
   </div>
 
+  <!-- Multi-Image Swiper Lightbox Modal -->
+  <div class="modal-overlay" id="productModal">
+    <div class="lightbox-content">
+      <div class="swiper-container">
+        <button class="swiper-btn left" onclick="changeImage(-1)">&#10094;</button>
+        <img id="activeModalImage" src="" alt="Product view">
+        <button class="swiper-btn right" onclick="changeImage(1)">&#10095;</button>
+      </div>
+      <div class="lightbox-body">
+        <h3 id="modalProductTitle"></h3>
+        <div class="card-price" id="modalProductPrice" style="margin-top: 0.4rem;"></div>
+        
+        <div class="shades-label" style="margin-top: 1rem;">Available Shades (<span id="shadeCountLabel">0</span>)</div>
+        <div class="shades-container" id="modalShadesContainer"></div>
+
+        <div style="display: flex; gap: 0.5rem; margin-top: 1.5rem;">
+          <button class="btn btn-pink" style="flex: 1;" id="modalAddCartBtn">Add To Cart</button>
+          <button class="btn btn-outline" onclick="closeProductModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // Initial State Initialization
+    // Initial Catalog Data (USHA'S Example Pre-configured in PKR)
     const DEFAULT_PRODUCTS = [
       {
         id: '1',
-        title: 'Air Matte Liquid Blush',
-        price: 18.50,
-        image: 'https://images.unsplash.com/photo-1596462511134-0ce510d47172?auto=format&fit=crop&w=600&q=80',
-        shades: [{name: 'Soft Pink', hex: '#ffb6c1'}, {name: 'Peach', hex: '#ffdab9'}, {name: 'Coral', hex: '#f08080'}]
-      },
-      {
-        id: '2',
-        title: 'Hydrating Velvet Foundation',
-        price: 32.00,
-        image: 'https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?auto=format&fit=crop&w=600&q=80',
-        shades: [{name: 'Ivory', hex: '#fff5e6'}, {name: 'Warm Honey', hex: '#e6c280'}, {name: 'Deep Mocha', hex: '#664229'}]
+        title: 'USHAS 24-Shade Glitter Palette',
+        price: 1850,
+        images: [
+          'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=600&q=80',
+          'https://images.unsplash.com/photo-1596462511134-0ce510d47172?auto=format&fit=crop&w=600&q=80'
+        ],
+        shades: Array.from({length: 24}, (_, i) => ({
+          name: `Glitter ${i + 1}`,
+          hex: `hsl(${(i * 15) % 360}, 80%, 60%)`
+        }))
       }
     ];
 
     let storeProducts = JSON.parse(localStorage.getItem('hb_products')) || DEFAULT_PRODUCTS;
     let cart = [];
     let selectedShades = {};
+    let activeModalProduct = null;
+    let activeImageIndex = 0;
 
     function init() {
       if (!localStorage.getItem('hb_products')) {
@@ -190,17 +244,20 @@
       updateMetrics();
     }
 
-    // Render Storefront
+    // Render Storefront Grid
     function renderProducts(items) {
       const grid = document.getElementById('productGrid');
       grid.innerHTML = items.map(p => `
         <div class="card">
-          <img src="${p.image}" alt="${p.title}">
+          <div class="card-img-wrapper" onclick="openProductModal('${p.id}')">
+            <img src="${p.images[0]}" alt="${p.title}">
+            <span class="badge-count">${p.images.length} Photos</span>
+          </div>
           <div class="card-body">
             <div class="card-title">${p.title}</div>
-            <div class="card-price">$${p.price.toFixed(2)}</div>
+            <div class="card-price">Rs. ${p.price.toLocaleString()}</div>
             
-            <div class="shades-label">Select Shade</div>
+            <div class="shades-label">Select Shade (${p.shades.length} Available)</div>
             <div class="shades-container">
               ${p.shades.map((s, idx) => `
                 <div class="shade-swatch ${idx === 0 ? 'active' : ''}" 
@@ -217,6 +274,7 @@
       `).join('');
     }
 
+    // Dynamic Shade Selection inside Grid Card
     function selectShade(productId, shadeName, el) {
       selectedShades[productId] = shadeName;
       const swatches = el.parentElement.querySelectorAll('.shade-swatch');
@@ -229,7 +287,41 @@
       const chosenShade = selectedShades[productId] || (product.shades[0] ? product.shades[0].name : 'Default');
       cart.push({ ...product, selectedShade: chosenShade });
       document.getElementById('cartCount').innerText = cart.length;
-      alert(`Added ${product.title} (${chosenShade}) to your bag!`);
+      alert(`Added ${product.title} (${chosenShade}) to your cart!`);
+    }
+
+    // Multi-Image Swiper Modal Logic
+    function openProductModal(productId) {
+      activeModalProduct = storeProducts.find(p => p.id === productId);
+      activeImageIndex = 0;
+      
+      document.getElementById('modalProductTitle').innerText = activeModalProduct.title;
+      document.getElementById('modalProductPrice').innerText = `Rs. ${activeModalProduct.price.toLocaleString()}`;
+      document.getElementById('shadeCountLabel').innerText = activeModalProduct.shades.length;
+      document.getElementById('activeModalImage').src = activeModalProduct.images[0];
+      
+      // Render Shade List in Modal
+      const container = document.getElementById('modalShadesContainer');
+      container.innerHTML = activeModalProduct.shades.map((s, idx) => `
+        <div class="shade-swatch ${idx === 0 ? 'active' : ''}" 
+             style="background: ${s.hex}" 
+             title="${s.name}"
+             onclick="selectShade('${activeModalProduct.id}', '${s.name}', this)">
+        </div>
+      `).join('');
+
+      document.getElementById('modalAddCartBtn').onclick = () => addToCart(activeModalProduct.id);
+      document.getElementById('productModal').style.display = 'flex';
+    }
+
+    function changeImage(direction) {
+      if (!activeModalProduct || !activeModalProduct.images.length) return;
+      activeImageIndex = (activeImageIndex + direction + activeModalProduct.images.length) % activeModalProduct.images.length;
+      document.getElementById('activeModalImage').src = activeModalProduct.images[activeImageIndex];
+    }
+
+    function closeProductModal() {
+      document.getElementById('productModal').style.display = 'none';
     }
 
     // Search Engine
@@ -239,7 +331,7 @@
       renderProducts(filtered);
     }
 
-    // Admin Authentication & Local Image Processing
+    // Admin Panel Controls & Shades Generator
     function handleAdminAuth() {
       if (sessionStorage.getItem('hb_admin_authed') === 'true') {
         toggleAdminPanel();
@@ -264,49 +356,74 @@
       panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
     }
 
+    function addShadeRow() {
+      const container = document.getElementById('shadeInputsContainer');
+      const div = document.createElement('div');
+      div.className = 'shade-input-row';
+      div.innerHTML = `
+        <input type="color" class="color-picker" value="#e75480">
+        <input type="text" class="form-control" placeholder="Shade Name">
+      `;
+      container.appendChild(div);
+    }
+
+    // Save Product with Multiple Local Device Images
     function saveProduct(e) {
       e.preventDefault();
       const title = document.getElementById('prodTitle').value;
       const price = parseFloat(document.getElementById('prodPrice').value);
-      const shadesRaw = document.getElementById('prodShades').value;
-      const fileInput = document.getElementById('prodImage').files[0];
+      const files = Array.from(document.getElementById('prodImages').files);
 
-      // Format shades from raw text string
-      const shadesArr = shadesRaw ? shadesRaw.split(',').map(entry => {
-        const [name, hex] = entry.split(':');
-        return { name: name?.trim() || 'Shade', hex: hex?.trim() || '#e75480' };
-      }) : [{ name: 'Standard', hex: '#e75480' }];
+      // Collect Admin-defined Shades
+      const shadeRows = document.querySelectorAll('.shade-input-row');
+      const shades = [];
+      shadeRows.forEach((row, idx) => {
+        const hex = row.querySelector('.color-picker').value;
+        const name = row.querySelector('.form-control').value || `Shade ${idx + 1}`;
+        shades.push({ name, hex });
+      });
 
-      // Convert image to Base64 for local persistence without URLs
-      const reader = new FileReader();
-      reader.onload = function(evt) {
+      // Convert all selected images to Base64
+      const imagePromises = files.map(file => {
+        return new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.onload = (evt) => resolve(evt.target.result);
+          reader.readAsDataURL(file);
+        });
+      });
+
+      Promise.all(imagePromises).then(imagesBase64 => {
         const newProduct = {
           id: Date.now().toString(),
           title: title,
           price: price,
-          image: evt.target.result,
-          shades: shadesArr
+          images: imagesBase64,
+          shades: shades.length ? shades : [{ name: 'Default', hex: '#e75480' }]
         };
+
         storeProducts.push(newProduct);
         localStorage.setItem('hb_products', JSON.stringify(storeProducts));
         renderProducts(storeProducts);
         updateMetrics();
+
+        // Reset Form
         document.getElementById('productForm').reset();
-        alert('New item successfully added to catalog!');
-      };
-      
-      if (fileInput) {
-        reader.readAsDataURL(fileInput);
-      }
+        document.getElementById('shadeInputsContainer').innerHTML = `
+          <div class="shade-input-row">
+            <input type="color" class="color-picker" value="#e75480">
+            <input type="text" class="form-control" placeholder="Shade Name (e.g. Shade 01)">
+          </div>
+        `;
+        alert('Product with multiple images and shades published successfully!');
+      });
     }
 
     function updateMetrics() {
       const totalVal = storeProducts.reduce((sum, p) => sum + p.price, 0);
-      document.getElementById('metricRevenue').innerText = `$${totalVal.toFixed(2)}`;
+      document.getElementById('metricRevenue').innerText = `Rs. ${totalVal.toLocaleString()}`;
       document.getElementById('metricCount').innerText = storeProducts.length;
     }
 
-    // Run on Load
     init();
   </script>
 </body>
