@@ -3,491 +3,311 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>USHA'S Organic Hair Care | Pure Botanical Formulations</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <title>Hiba Beauty | Premium Cosmetics</title>
   <style>
     :root {
-      --wood-dark: #1E120B;
-      --wood-medium: #3A2316;
-      --forest-green: #1B3B2B;
-      --emerald: #2D5A41;
-      --gold-accent: #C5A059;
-      --cream-bg: #F7F4EF;
-      --card-bg: #FFFFFF;
-      --text-dark: #2C2A29;
-      --text-muted: #6B6560;
+      --primary-pink: #f8c8dc;
+      --accent-pink: #e75480;
+      --deep-pink: #c71585;
+      --soft-white: #faf7f8;
+      --pure-white: #ffffff;
+      --text-dark: #4a3e43;
+      --gray-light: #f2e9ed;
+      --shadow: 0 8px 20px rgba(231, 84, 128, 0.12);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background-color: var(--cream-bg); color: var(--text-dark); font-family: 'Plus Jakarta Sans', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
+    body { background-color: var(--soft-white); color: var(--text-dark); }
 
-    /* Top Banner & Header */
-    .top-bar { background: var(--wood-dark); color: var(--gold-accent); text-align: center; font-size: 0.8rem; letter-spacing: 1.5px; text-transform: uppercase; padding: 0.5rem 1rem; border-bottom: 1px solid rgba(197, 160, 89, 0.2); }
-    
-    header { background: var(--forest-green); color: white; padding: 1.2rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border-bottom: 2px solid var(--gold-accent); }
-    .brand-title { font-family: 'Cinzel', serif; font-size: 1.6rem; font-weight: 700; letter-spacing: 2px; color: #FFFFFF; text-decoration: none; }
-    .brand-title span { color: var(--gold-accent); }
-    
-    .nav-actions { display: flex; align-items: center; gap: 1rem; }
-    .btn-cart { background: transparent; border: 1px solid var(--gold-accent); color: white; padding: 0.6rem 1.4rem; border-radius: 4px; cursor: pointer; font-size: 0.9rem; font-weight: 500; transition: all 0.3s; display: flex; align-items: center; gap: 8px; }
-    .btn-cart:hover { background: var(--gold-accent); color: var(--wood-dark); }
-    .cart-badge { background: var(--gold-accent); color: var(--wood-dark); border-radius: 50%; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; }
+    /* Header & Navigation */
+    header {
+      background: var(--pure-white);
+      padding: 1rem 2rem;
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .brand { font-size: 1.8rem; font-weight: 700; color: var(--accent-pink); letter-spacing: 1px; }
+    .nav-actions { display: flex; gap: 1rem; align-items: center; }
+    .search-bar {
+      padding: 0.6rem 1rem; border: 1px solid var(--primary-pink);
+      border-radius: 20px; outline: none; width: 220px; background: var(--soft-white);
+    }
+    .btn {
+      padding: 0.6rem 1.2rem; border: none; border-radius: 20px;
+      cursor: pointer; font-weight: 600; transition: 0.2s ease;
+    }
+    .btn-pink { background: var(--accent-pink); color: white; }
+    .btn-pink:hover { background: var(--deep-pink); }
+    .btn-outline { border: 1px solid var(--accent-pink); color: var(--accent-pink); background: transparent; }
 
-    /* Hero Section */
-    .hero { background: linear-gradient(rgba(30, 18, 11, 0.7), rgba(27, 59, 43, 0.8)), url('https://images.unsplash.com/photo-1608248597369-2a912555e7ce?auto=format&fit=crop&w=1600&q=80') center/cover; color: white; text-align: center; padding: 4rem 1rem; margin-bottom: 3rem; border-bottom: 4px solid var(--wood-medium); }
-    .hero h2 { font-family: 'Cinzel', serif; font-size: 2.5rem; margin-bottom: 1rem; color: #FFF; letter-spacing: 1px; }
-    .hero p { max-width: 600px; margin: 0 auto; font-size: 1.05rem; color: #E0E0E0; line-height: 1.6; font-weight: 300; }
+    /* Layout Containers */
+    .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+    .catalog { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
 
-    /* Layout & Product Grid */
-    .container { max-width: 1280px; margin: 0 auto; padding: 0 1.5rem 4rem; flex: 1; width: 100%; }
-    .section-title { text-align: center; font-family: 'Cinzel', serif; font-size: 1.8rem; color: var(--wood-dark); margin-bottom: 2.5rem; letter-spacing: 1px; position: relative; }
-    .section-title::after { content: ''; display: block; width: 60px; height: 2px; background: var(--gold-accent); margin: 0.8rem auto 0; }
+    /* Product Cards */
+    .card {
+      background: var(--pure-white); border-radius: 12px;
+      overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column;
+    }
+    .card img { width: 100%; height: 240px; object-fit: cover; background: var(--gray-light); }
+    .card-body { padding: 1rem; display: flex; flex-direction: column; flex-grow: 1; }
+    .card-title { font-size: 1.1rem; margin-bottom: 0.4rem; color: var(--text-dark); }
+    .card-price { font-weight: 700; color: var(--accent-pink); font-size: 1.2rem; margin-bottom: 0.8rem; }
+    .shades-label { font-size: 0.8rem; text-transform: uppercase; color: #888; margin-bottom: 0.4rem; }
+    .shades-container { display: flex; gap: 0.4rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .shade-swatch {
+      width: 24px; height: 24px; border-radius: 50%; border: 2px solid white;
+      box-shadow: 0 0 3px rgba(0,0,0,0.3); cursor: pointer; transition: 0.1s;
+    }
+    .shade-swatch.active { transform: scale(1.25); border-color: var(--accent-pink); }
 
-    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 2rem; }
-    .product-card { background: var(--card-bg); border-radius: 8px; overflow: hidden; border: 1px solid #E5DFD5; box-shadow: 0 4px 15px rgba(0,0,0,0.04); transition: transform 0.3s, box-shadow 0.3s; display: flex; flex-direction: column; justify-content: space-between; }
-    .product-card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.08); }
-    .product-img-wrapper { position: relative; width: 100%; height: 260px; background: #FAF8F5; overflow: hidden; }
-    .product-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
-    .product-card:hover img { transform: scale(1.05); }
-    .product-info { padding: 1.2rem; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-    .product-category { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gold-accent); font-weight: 600; margin-bottom: 0.3rem; }
-    .product-title { font-family: 'Cinzel', serif; font-size: 1.1rem; color: var(--wood-dark); margin-bottom: 0.5rem; font-weight: 600; line-height: 1.3; }
-    .product-desc { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-    .product-price-row { display: flex; justify-content: space-between; align-items: center; margin-top: auto; padding-top: 0.8rem; border-top: 1px solid #F0ECE3; }
-    .product-price { font-size: 1.15rem; color: var(--forest-green); font-weight: 700; }
-    .btn-add { background: var(--forest-green); color: white; border: none; padding: 0.6rem 1rem; border-radius: 4px; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: background 0.2s; }
-    .btn-add:hover { background: var(--emerald); }
+    /* Admin Dashboard Panel */
+    .admin-panel {
+      background: var(--pure-white); border-radius: 12px; padding: 1.5rem;
+      margin-bottom: 2rem; box-shadow: var(--shadow); display: none;
+    }
+    .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0; }
+    .metric-card {
+      background: var(--soft-white); border-left: 4px solid var(--accent-pink);
+      padding: 1rem; border-radius: 6px;
+    }
+    .metric-card h4 { font-size: 0.85rem; color: #777; }
+    .metric-card p { font-size: 1.5rem; font-weight: 700; color: var(--text-dark); margin-top: 0.2rem; }
 
-    /* Footer */
-    footer { background: var(--wood-dark); color: #C5C0B8; padding: 3rem 1.5rem 1.5rem; margin-top: auto; border-top: 3px solid var(--gold-accent); font-size: 0.9rem; }
-    .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
-    .footer-brand { font-family: 'Cinzel', serif; color: #FFF; font-size: 1.4rem; margin-bottom: 0.8rem; }
-    .footer-brand span { color: var(--gold-accent); }
-    .admin-link { color: var(--gold-accent); text-decoration: none; cursor: pointer; font-size: 0.85rem; display: inline-block; margin-top: 1rem; }
-    .admin-link:hover { text-decoration: underline; }
-
-    /* Cart Drawer */
-    .cart-drawer { position: fixed; top: 0; right: -420px; width: 380px; height: 100%; background: white; box-shadow: -5px 0 25px rgba(0,0,0,0.2); transition: right 0.35s ease; z-index: 1000; display: flex; flex-direction: column; }
-    .cart-drawer.open { right: 0; }
-    .cart-header { background: var(--forest-green); color: white; padding: 1.2rem 1.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--gold-accent); }
-    .cart-header h3 { font-family: 'Cinzel', serif; font-size: 1.2rem; }
-    .btn-close { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; }
-    .cart-body { padding: 1.5rem; flex-grow: 1; overflow-y: auto; }
-    .cart-item { display: flex; gap: 1rem; margin-bottom: 1.2rem; padding-bottom: 1.2rem; border-bottom: 1px solid #E5DFD5; align-items: center; }
-    .cart-item img { width: 60px; height: 60px; object-fit: cover; border-radius: 4px; }
-    .cart-item-info { flex-grow: 1; }
-    .cart-item-title { font-size: 0.9rem; font-weight: 600; color: var(--wood-dark); }
-    .cart-item-price { font-size: 0.85rem; color: var(--forest-green); font-weight: 600; margin-top: 2px; }
-    .qty-btn { background: #E5DFD5; border: none; width: 22px; height: 22px; border-radius: 3px; cursor: pointer; font-weight: bold; }
-    .cart-footer { padding: 1.5rem; background: #FAF8F5; border-top: 1px solid #E5DFD5; }
-    .cart-total-row { display: flex; justify-content: space-between; font-family: 'Cinzel', serif; font-size: 1.2rem; font-weight: 700; color: var(--wood-dark); margin-bottom: 1.2rem; }
-    .btn-checkout { background: var(--forest-green); color: white; border: none; width: 100%; padding: 0.9rem; border-radius: 4px; font-weight: 600; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; font-size: 0.85rem; transition: background 0.2s; }
-    .btn-checkout:hover { background: var(--emerald); }
-
-    /* Modal Layouts */
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(30,18,11,0.7); z-index: 2000; overflow-y: auto; justify-content: center; align-items: center; backdrop-filter: blur(4px); }
-    .modal.open { display: flex; }
-    .modal-box { background: white; padding: 2.5rem; border-radius: 8px; max-width: 850px; width: 92%; max-height: 90vh; overflow-y: auto; border: 1px solid var(--gold-accent); }
-    .modal-box h2 { font-family: 'Cinzel', serif; color: var(--wood-dark); margin-bottom: 1.5rem; font-size: 1.6rem; }
-
-    .form-group { margin-bottom: 1.2rem; }
-    .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 600; font-size: 0.85rem; color: var(--wood-dark); }
-    .form-group input, .form-group textarea { width: 100%; padding: 0.75rem; border: 1px solid #D5CFC5; border-radius: 4px; font-family: inherit; font-size: 0.9rem; }
-    .form-group input:focus { outline: none; border-color: var(--forest-green); }
-
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
-    .stat-card { background: #F4EFE6; padding: 1.5rem; border-radius: 6px; text-align: center; border-left: 4px solid var(--forest-green); }
-    .stat-card p { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
-    .stat-card h3 { font-family: 'Cinzel', serif; font-size: 1.8rem; color: var(--forest-green); margin-top: 0.4rem; }
-
-    table { width: 100%; border-collapse: collapse; margin-top: 1rem; margin-bottom: 2rem; }
-    th, td { padding: 0.75rem 1rem; border: 1px solid #E5DFD5; text-align: left; font-size: 0.85rem; }
-    th { background: #FAF8F5; font-family: 'Cinzel', serif; color: var(--wood-dark); }
-    .btn-sm { padding: 0.35rem 0.75rem; font-size: 0.75rem; border-radius: 3px; border: none; cursor: pointer; font-weight: 600; }
-    .btn-edit { background: var(--gold-accent); color: white; }
-    .btn-del { background: #C0392B; color: white; }
+    /* Dynamic Forms & Modals */
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; margin-bottom: 0.3rem; font-size: 0.9rem; font-weight: 600; }
+    .form-control {
+      width: 100%; padding: 0.6rem; border: 1px solid var(--primary-pink);
+      border-radius: 6px; outline: none;
+    }
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center; z-index: 200;
+    }
+    .modal-content { background: white; padding: 2rem; border-radius: 12px; width: 340px; }
   </style>
 </head>
 <body>
 
-  <div class="top-bar">Handcrafted Botanical Formulations • 100% Cold-Pressed Oils</div>
-
   <header>
-    <a href="#" class="brand-title">USHA'S <span>BOTANICALS</span></a>
+    <div class="brand">Hiba Beauty</div>
     <div class="nav-actions">
-      <button class="btn-cart" onclick="toggleCart()">
-        🛒 CART <span class="cart-badge" id="cartCount">0</span>
-      </button>
+      <input type="text" class="search-bar" id="searchInput" placeholder="Search catalog..." onkeyup="filterProducts()">
+      <button class="btn btn-outline" onclick="toggleCartModal()">Cart (<span id="cartCount">0</span>)</button>
+      <button class="btn btn-pink" onclick="handleAdminAuth()">Admin Portal</button>
     </div>
   </header>
 
-  <section class="hero">
-    <h2>Nourish Your Crown Naturally</h2>
-    <p>Cold-pressed herbal elixirs, organic root serums, and pure hair oils crafted for growth, shine, and structural repair.</p>
-  </section>
-
   <div class="container">
-    <h3 class="section-title">Signature Hair Care Line</h3>
-    <div class="product-grid" id="productGrid"></div>
-  </div>
-
-  <footer>
-    <div class="footer-content">
-      <div>
-        <div class="footer-brand">USHA'S <span>BOTANICALS</span></div>
-        <p>Pure botanical extracts blended carefully to revitalise natural hair strength and density.</p>
-        <a class="admin-link" onclick="requestAdminLogin()">⚙ Admin Portal</a>
-      </div>
-      <div>
-        <h4 style="font-family:'Cinzel',serif; color:#FFF; margin-bottom:1rem;">Customer Care</h4>
-        <p>Free Standard Shipping Nationwide</p>
-        <p>100% Quality Guaranteed</p>
-      </div>
-    </div>
-    <div style="text-align: center; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.8rem; color: #8A857D;">
-      &copy; 2026 USHA'S Beauty. All rights reserved.
-    </div>
-  </footer>
-
-  <!-- Cart Drawer -->
-  <div class="cart-drawer" id="cartDrawer">
-    <div class="cart-header">
-      <h3>Your Selection</h3>
-      <button class="btn-close" onclick="toggleCart()">&times;</button>
-    </div>
-    <div class="cart-body" id="cartItems"></div>
-    <div class="cart-footer">
-      <div class="cart-total-row">
-        <span>Total Amount:</span>
-        <span id="cartTotal">PKR 0</span>
-      </div>
-      <button class="btn-checkout" onclick="openCheckoutModal()">Proceed to Order</button>
-    </div>
-  </div>
-
-  <!-- Checkout Modal -->
-  <div class="modal" id="checkoutModal">
-    <div class="modal-box" style="max-width: 500px;">
-      <h2>Delivery Information</h2>
-      <form id="checkoutForm" onsubmit="handleCheckout(event)">
-        <div class="form-group">
-          <label>Full Name</label>
-          <input type="text" id="custName" required placeholder="Enter your full name">
+    <!-- Admin View -->
+    <section class="admin-panel" id="adminPanel">
+      <h2>Store Performance & Product Management</h2>
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <h4>TOTAL CATALOG VALUE</h4>
+          <p id="metricRevenue">$0.00</p>
         </div>
-        <div class="form-group">
-          <label>Phone / WhatsApp</label>
-          <input type="tel" id="custPhone" required placeholder="03XXXXXXXXX">
+        <div class="metric-card">
+          <h4>TOTAL PRODUCTS</h4>
+          <p id="metricCount">0</p>
         </div>
-        <div class="form-group">
-          <label>Complete Shipping Address</label>
-          <textarea id="custAddress" rows="3" required placeholder="Street address, City"></textarea>
+      </div>
+
+      <h3 style="margin-top: 1.5rem;">Add New Product</h3>
+      <form id="productForm" onsubmit="saveProduct(event)">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+          <div class="form-group">
+            <label>Product Title</label>
+            <input type="text" class="form-control" id="prodTitle" required placeholder="e.g. Velvet Rose Lipstick">
+          </div>
+          <div class="form-group">
+            <label>Price ($)</label>
+            <input type="number" step="0.01" class="form-control" id="prodPrice" required placeholder="24.99">
+          </div>
         </div>
-        <button type="submit" class="btn-checkout" style="margin-top: 1rem;">Confirm Order</button>
-        <button type="button" class="btn-sm" style="width: 100%; margin-top: 0.6rem; background: #888; color: white;" onclick="closeModal('checkoutModal')">Cancel</button>
+        
+        <div class="form-group">
+          <label>Upload Image Directly From Device</label>
+          <input type="file" class="form-control" id="prodImage" accept="image/*" required>
+        </div>
+
+        <div class="form-group">
+          <label>Shades Configuration (Name:HEX format, comma separated)</label>
+          <input type="text" class="form-control" id="prodShades" placeholder="Ruby:#d1001c, Rose Gold:#b76e79, Nude:#e3a896">
+        </div>
+
+        <button type="submit" class="btn btn-pink">Publish to Storefront</button>
       </form>
-    </div>
+    </section>
+
+    <!-- Product Catalog View -->
+    <h2>Catalog Highlights</h2>
+    <div class="catalog" id="productGrid" style="margin-top: 1rem;"></div>
   </div>
 
-  <!-- Admin Panel Modal -->
-  <div class="modal" id="adminModal">
-    <div class="modal-box">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-        <h2>Store Administrative Portal</h2>
-        <button class="btn-sm btn-del" onclick="closeModal('adminModal')">&times; Close</button>
+  <!-- Admin Login Modal -->
+  <div class="modal-overlay" id="authModal">
+    <div class="modal-content">
+      <h3>Admin Access</h3>
+      <div class="form-group" style="margin-top: 1rem;">
+        <label>Enter Password</label>
+        <input type="password" class="form-control" id="adminPassInput" placeholder="Password">
       </div>
-
-      <div class="stats-grid">
-        <div class="stat-card">
-          <p>Total Sales Revenue</p>
-          <h3 id="statRevenue">PKR 0</h3>
-        </div>
-        <div class="stat-card">
-          <p>Completed Orders</p>
-          <h3 id="statOrders">0</h3>
-        </div>
-      </div>
-
-      <!-- Add/Edit Form -->
-      <div style="background: #FAF8F5; padding: 1.5rem; border-radius: 6px; border: 1px solid #E5DFD5; margin-bottom: 2rem;">
-        <h3 id="formTitle" style="font-family:'Cinzel',serif; font-size:1.1rem; margin-bottom:1rem;">Add New Item</h3>
-        <form id="productForm" onsubmit="saveProduct(event)">
-          <input type="hidden" id="editProductId">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-            <div class="form-group">
-              <label>Product Title</label>
-              <input type="text" id="prodName" required>
-            </div>
-            <div class="form-group">
-              <label>Price (PKR)</label>
-              <input type="number" id="prodPrice" required>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Upload Photo Direct from Device</label>
-            <input type="file" id="prodImage" accept="image/*">
-          </div>
-          <div class="form-group">
-            <label>Image Web Link (Optional Alternative)</label>
-            <input type="url" id="prodImageUrl" placeholder="https://images.unsplash.com/...">
-          </div>
-          <button type="submit" class="btn-add" style="padding: 0.75rem 1.5rem;">Save Item to Inventory</button>
-          <button type="button" class="btn-sm" id="cancelEditBtn" style="display:none; background: #777; color: white; margin-left: 0.5rem;" onclick="resetProductForm()">Cancel Edit</button>
-        </form>
-      </div>
-
-      <h3 style="font-family:'Cinzel',serif; margin-bottom:0.8rem;">Inventory Catalogue</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Photo</th>
-            <th>Item</th>
-            <th>Price</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="adminProductTable"></tbody>
-      </table>
-
-      <h3 style="font-family:'Cinzel',serif; margin-bottom:0.8rem;">Incoming Customer Orders</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Order ID</th>
-            <th>Customer</th>
-            <th>Items Placed</th>
-            <th>Total Amount</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody id="adminOrderTable"></tbody>
-      </table>
+      <button class="btn btn-pink" style="width: 100%;" onclick="verifyAdminPassword()">Login</button>
     </div>
   </div>
 
   <script>
-    // Initial 12 Hair Care Oils & Treatments
-    const defaultProducts = [
-      { id: 1, name: "Herbal Hair Growth Elixir", price: 1650, image: "https://images.unsplash.com/photo-1608248597369-2a912555e7ce?auto=format&fit=crop&w=800&q=80" },
-      { id: 2, name: "Cold-Pressed Rosemary Scalp Serum", price: 1850, image: "https://images.unsplash.com/photo-1608248597369-2a912555e7ce?auto=format&fit=crop&w=800&q=80" },
-      { id: 3, name: "Raw Organic Argan Moisture Therapy", price: 2100, image: "https://images.unsplash.com/photo-1608248597369-2a912555e7ce?auto=format&fit=crop&w=800&q=80" },
-      { id: 4, name: "Black Seed Vitality Scalp Oil", price: 1750, image: "https://images.unsplash.com/photo-1608248597369-2a912555e7ce?auto=format&fit=crop&w=800&q=80" },
-      { id: 5, name: "Botanical Amla Strength Concentrate", price: 1550, image: "https://images.unsplash.com/photo-1608248597369-2a912555e7ce?auto=format&fit=crop&w=800&q=80" },
-      { id: 6, name: "Pure Castor Root Thickening Elixir", price: 1400, image: "https://images.unsplash.com/photo-1608248597369-2a912555e7ce?auto=format&fit=crop&w=800&q=80" },
-      { id: 7, name: "Coconut Oil Intensive Repair", price: 1350, image: "https://images.unsplash.com/photo-1608248597369-2a912555e7ce?auto=format&fit=crop&w=800&q=80" },
-      { id: 8, name: "Bhringraj Botanical Root Serum", price: 1950, image: "https://images.unsplash.com/photo-1608248597369-2a912555e7ce?auto=format&fit=crop&w=800&q=80" },
-      { id: 9, name: "Sweet Almond Shine & Softening Extract", price: 1500, image: "https://images.unsplash.com/photo-1608248597369-2a912555e7ce?auto=format&fit=crop&w=800&q=80" },
-      { id: 10, name: "Tea Tree Anti-Dandruff Scalp Treatment", price: 1700, image: "https://images.unsplash.com/photo-1608248597369-2a912555e7ce?auto=format&fit=crop&w=800&q=80" },
-      { id: 11, name: "Jojoba Botanical Moisture Balance", price: 2200, image: "https://images.unsplash.com/photo-1608248597369-2a912555e7ce?auto=format&fit=crop&w=800&q=80" },
-      { id: 12, name: "Hibiscus Overnight Hair Renewal Serum", price: 1900, image: "https://images.unsplash.com/photo-1608248597369-2a912555e7ce?auto=format&fit=crop&w=800&q=80" }
+    // Initial State Initialization
+    const DEFAULT_PRODUCTS = [
+      {
+        id: '1',
+        title: 'Air Matte Liquid Blush',
+        price: 18.50,
+        image: 'https://images.unsplash.com/photo-1596462511134-0ce510d47172?auto=format&fit=crop&w=600&q=80',
+        shades: [{name: 'Soft Pink', hex: '#ffb6c1'}, {name: 'Peach', hex: '#ffdab9'}, {name: 'Coral', hex: '#f08080'}]
+      },
+      {
+        id: '2',
+        title: 'Hydrating Velvet Foundation',
+        price: 32.00,
+        image: 'https://images.unsplash.com/photo-1631729371254-42c2892f0e6e?auto=format&fit=crop&w=600&q=80',
+        shades: [{name: 'Ivory', hex: '#fff5e6'}, {name: 'Warm Honey', hex: '#e6c280'}, {name: 'Deep Mocha', hex: '#664229'}]
+      }
     ];
 
-    let products = JSON.parse(localStorage.getItem('usha_products')) || defaultProducts;
-    let orders = JSON.parse(localStorage.getItem('usha_orders')) || [];
+    let storeProducts = JSON.parse(localStorage.getItem('hb_products')) || DEFAULT_PRODUCTS;
     let cart = [];
+    let selectedShades = {};
 
-    function saveData() {
-      localStorage.setItem('usha_products', JSON.stringify(products));
-      localStorage.setItem('usha_orders', JSON.stringify(orders));
+    function init() {
+      if (!localStorage.getItem('hb_products')) {
+        localStorage.setItem('hb_products', JSON.stringify(DEFAULT_PRODUCTS));
+      }
+      renderProducts(storeProducts);
+      updateMetrics();
     }
 
-    function renderProducts() {
+    // Render Storefront
+    function renderProducts(items) {
       const grid = document.getElementById('productGrid');
-      grid.innerHTML = products.map(p => `
-        <div class="product-card">
-          <div class="product-img-wrapper">
-            <img src="${p.image}" alt="${p.name}">
-          </div>
-          <div class="product-info">
-            <div>
-              <div class="product-category">Pure Botanical</div>
-              <div class="product-title">${p.name}</div>
-              <div class="product-desc">Cold-pressed organic formulation crafted for deep scalp nutrition and strand fortification.</div>
+      grid.innerHTML = items.map(p => `
+        <div class="card">
+          <img src="${p.image}" alt="${p.title}">
+          <div class="card-body">
+            <div class="card-title">${p.title}</div>
+            <div class="card-price">$${p.price.toFixed(2)}</div>
+            
+            <div class="shades-label">Select Shade</div>
+            <div class="shades-container">
+              ${p.shades.map((s, idx) => `
+                <div class="shade-swatch ${idx === 0 ? 'active' : ''}" 
+                     style="background: ${s.hex}" 
+                     title="${s.name}"
+                     onclick="selectShade('${p.id}', '${s.name}', this)">
+                </div>
+              `).join('')}
             </div>
-            <div class="product-price-row">
-              <div class="product-price">PKR ${p.price}</div>
-              <button class="btn-add" onclick="addToCart(${p.id})">Add to Cart</button>
-            </div>
+            
+            <button class="btn btn-pink" style="margin-top:auto" onclick="addToCart('${p.id}')">Add To Cart</button>
           </div>
         </div>
       `).join('');
     }
 
-    function addToCart(id) {
-      const item = cart.find(i => i.id === id);
-      if (item) item.quantity++;
-      else {
-        const product = products.find(p => p.id === id);
-        cart.push({ ...product, quantity: 1 });
-      }
-      updateCartUI();
-      document.getElementById('cartDrawer').classList.add('open');
+    function selectShade(productId, shadeName, el) {
+      selectedShades[productId] = shadeName;
+      const swatches = el.parentElement.querySelectorAll('.shade-swatch');
+      swatches.forEach(s => s.classList.remove('active'));
+      el.classList.add('active');
     }
 
-    function updateCartUI() {
-      const cartItems = document.getElementById('cartItems');
-      const totalCount = cart.reduce((sum, i) => sum + i.quantity, 0);
-      const totalPrice = cart.reduce((sum, i) => sum + (i.price * i.quantity), 0);
-      
-      document.getElementById('cartCount').textContent = totalCount;
-      document.getElementById('cartTotal').textContent = `PKR ${totalPrice}`;
-
-      cartItems.innerHTML = cart.length === 0 
-        ? '<p style="text-align:center; color:var(--text-muted); margin-top:3rem; font-size:0.9rem;">Your cart is empty.</p>'
-        : cart.map(i => `
-          <div class="cart-item">
-            <img src="${i.image}" alt="${i.name}">
-            <div class="cart-item-info">
-              <div class="cart-item-title">${i.name}</div>
-              <div class="cart-item-price">PKR ${i.price}</div>
-              <div style="display:flex; align-items:center; gap:8px; margin-top:5px;">
-                <button class="qty-btn" onclick="updateQty(${i.id}, -1)">-</button>
-                <span style="font-size:0.85rem; font-weight:600;">${i.quantity}</span>
-                <button class="qty-btn" onclick="updateQty(${i.id}, 1)">+</button>
-              </div>
-            </div>
-            <strong style="font-size:0.9rem; color:var(--wood-dark);">PKR ${i.price * i.quantity}</strong>
-          </div>
-        `).join('');
+    function addToCart(productId) {
+      const product = storeProducts.find(p => p.id === productId);
+      const chosenShade = selectedShades[productId] || (product.shades[0] ? product.shades[0].name : 'Default');
+      cart.push({ ...product, selectedShade: chosenShade });
+      document.getElementById('cartCount').innerText = cart.length;
+      alert(`Added ${product.title} (${chosenShade}) to your bag!`);
     }
 
-    function updateQty(id, change) {
-      const item = cart.find(i => i.id === id);
-      if (item) {
-        item.quantity += change;
-        if (item.quantity <= 0) cart = cart.filter(i => i.id !== id);
-      }
-      updateCartUI();
+    // Search Engine
+    function filterProducts() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = storeProducts.filter(p => p.title.toLowerCase().includes(query));
+      renderProducts(filtered);
     }
 
-    function toggleCart() { document.getElementById('cartDrawer').classList.toggle('open'); }
-    function openCheckoutModal() {
-      if (cart.length === 0) return alert('Your cart is currently empty!');
-      toggleCart();
-      document.getElementById('checkoutModal').classList.add('open');
-    }
-    function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-
-    function handleCheckout(e) {
-      e.preventDefault();
-      const newOrder = {
-        id: Date.now(),
-        name: document.getElementById('custName').value,
-        phone: document.getElementById('custPhone').value,
-        address: document.getElementById('custAddress').value,
-        items: cart.map(i => `${i.name} (x${i.quantity})`).join(', '),
-        total: cart.reduce((sum, i) => sum + (i.price * i.quantity), 0),
-        date: new Date().toLocaleDateString()
-      };
-      orders.push(newOrder);
-      cart = [];
-      saveData();
-      updateCartUI();
-      closeModal('checkoutModal');
-      document.getElementById('checkoutForm').reset();
-      alert('Order placed successfully! We will contact you shortly.');
-    }
-
-    // Admin Controls
-    function requestAdminLogin() {
-      const pass = prompt("Enter Administrator Password:");
-      if (pass === "admin123") {
-        renderAdminData();
-        document.getElementById('adminModal').classList.add('open');
-      } else if (pass !== null) {
-        alert("Incorrect password!");
+    // Admin Authentication & Local Image Processing
+    function handleAdminAuth() {
+      if (sessionStorage.getItem('hb_admin_authed') === 'true') {
+        toggleAdminPanel();
+      } else {
+        document.getElementById('authModal').style.display = 'flex';
       }
     }
 
-    function renderAdminData() {
-      const totalRev = orders.reduce((sum, o) => sum + o.total, 0);
-      document.getElementById('statRevenue').textContent = `PKR ${totalRev}`;
-      document.getElementById('statOrders').textContent = orders.length;
+    function verifyAdminPassword() {
+      const input = document.getElementById('adminPassInput').value;
+      if (input === 'admin123') {
+        sessionStorage.setItem('hb_admin_authed', 'true');
+        document.getElementById('authModal').style.display = 'none';
+        toggleAdminPanel();
+      } else {
+        alert('Invalid authentication password.');
+      }
+    }
 
-      document.getElementById('adminProductTable').innerHTML = products.map(p => `
-        <tr>
-          <td><img src="${p.image}" style="width:40px;height:40px;object-fit:cover;border-radius:4px;"></td>
-          <td>${p.name}</td>
-          <td>PKR ${p.price}</td>
-          <td>
-            <button class="btn-sm btn-edit" onclick="editProduct(${p.id})">Edit</button>
-            <button class="btn-sm btn-del" onclick="deleteProduct(${p.id})">Delete</button>
-          </td>
-        </tr>
-      `).join('');
-
-      document.getElementById('adminOrderTable').innerHTML = orders.map(o => `
-        <tr>
-          <td>#${o.id}</td>
-          <td><strong>${o.name}</strong><br><small>${o.phone}</small><br><small style="color:#777;">${o.address}</small></td>
-          <td>${o.items}</td>
-          <td>PKR ${o.total}</td>
-          <td>${o.date}</td>
-        </tr>
-      `).join('');
+    function toggleAdminPanel() {
+      const panel = document.getElementById('adminPanel');
+      panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
     }
 
     function saveProduct(e) {
       e.preventDefault();
-      const editId = document.getElementById('editProductId').value;
-      const name = document.getElementById('prodName').value;
+      const title = document.getElementById('prodTitle').value;
       const price = parseFloat(document.getElementById('prodPrice').value);
-      const imageFile = document.getElementById('prodImage').files[0];
-      const imageUrlInput = document.getElementById('prodImageUrl').value;
+      const shadesRaw = document.getElementById('prodShades').value;
+      const fileInput = document.getElementById('prodImage').files[0];
 
-      const proceedSave = (imgUrl) => {
-        const finalImg = imgUrl || imageUrlInput || 'https://images.unsplash.com/photo-1608248597369-2a912555e7ce?auto=format&fit=crop&w=800&q=80';
-        if (editId) {
-          const index = products.findIndex(p => p.id == editId);
-          products[index].name = name;
-          products[index].price = price;
-          products[index].image = finalImg;
-        } else {
-          products.push({ id: Date.now(), name, price, image: finalImg });
-        }
-        saveData();
-        renderProducts();
-        renderAdminData();
-        resetProductForm();
+      // Format shades from raw text string
+      const shadesArr = shadesRaw ? shadesRaw.split(',').map(entry => {
+        const [name, hex] = entry.split(':');
+        return { name: name?.trim() || 'Shade', hex: hex?.trim() || '#e75480' };
+      }) : [{ name: 'Standard', hex: '#e75480' }];
+
+      // Convert image to Base64 for local persistence without URLs
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        const newProduct = {
+          id: Date.now().toString(),
+          title: title,
+          price: price,
+          image: evt.target.result,
+          shades: shadesArr
+        };
+        storeProducts.push(newProduct);
+        localStorage.setItem('hb_products', JSON.stringify(storeProducts));
+        renderProducts(storeProducts);
+        updateMetrics();
+        document.getElementById('productForm').reset();
+        alert('New item successfully added to catalog!');
       };
-
-      if (imageFile) {
-        const reader = new FileReader();
-        reader.onloadend = () => proceedSave(reader.result);
-        reader.readAsDataURL(imageFile);
-      } else {
-        proceedSave(null);
+      
+      if (fileInput) {
+        reader.readAsDataURL(fileInput);
       }
     }
 
-    function editProduct(id) {
-      const p = products.find(prod => prod.id === id);
-      document.getElementById('editProductId').value = p.id;
-      document.getElementById('prodName').value = p.name;
-      document.getElementById('prodPrice').value = p.price;
-      document.getElementById('prodImageUrl').value = p.image;
-      document.getElementById('formTitle').textContent = "Edit Product Details";
-      document.getElementById('cancelEditBtn').style.display = "inline-block";
+    function updateMetrics() {
+      const totalVal = storeProducts.reduce((sum, p) => sum + p.price, 0);
+      document.getElementById('metricRevenue').innerText = `$${totalVal.toFixed(2)}`;
+      document.getElementById('metricCount').innerText = storeProducts.length;
     }
 
-    function resetProductForm() {
-      document.getElementById('productForm').reset();
-      document.getElementById('editProductId').value = '';
-      document.getElementById('formTitle').textContent = "Add New Item";
-      document.getElementById('cancelEditBtn').style.display = "none";
-    }
-
-    function deleteProduct(id) {
-      if (confirm('Delete this item from catalogue?')) {
-        products = products.filter(p => p.id !== id);
-        saveData();
-        renderProducts();
-        renderAdminData();
-      }
-    }
-
-    renderProducts();
+    // Run on Load
+    init();
   </script>
 </body>
 </html>
