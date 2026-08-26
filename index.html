@@ -3,229 +3,355 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Hiba Beauty | Premium Cosmetics</title>
+  <title>Hiba Beauty | Luxury Cosmetics</title>
+  <!-- Google Fonts for Stylish Brand Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,500&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
   <style>
     :root {
-      --primary-pink: #f8c8dc;
-      --accent-pink: #e75480;
-      --deep-pink: #c71585;
-      --soft-white: #faf7f8;
+      --primary-pink: #fce4ec;
+      --soft-rose: #f8bbd0;
+      --accent-pink: #ec407a;
+      --deep-rose: #d81b60;
+      --luxury-black: #1a1517;
+      --soft-white: #fcfbfb;
       --pure-white: #ffffff;
-      --text-dark: #4a3e43;
-      --gray-light: #f2e9ed;
-      --shadow: 0 8px 20px rgba(231, 84, 128, 0.12);
+      --muted-gray: #6b6366;
+      --glass-border: rgba(236, 64, 122, 0.15);
+      --shadow-sm: 0 4px 15px rgba(236, 64, 122, 0.06);
+      --shadow-lg: 0 12px 35px rgba(236, 64, 122, 0.12);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, sans-serif; }
-    body { background-color: var(--soft-white); color: var(--text-dark); overflow-x: hidden; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+    body { background-color: var(--soft-white); color: var(--luxury-black); overflow-x: hidden; }
 
-    /* Header Navigation */
+    /* Splash Screen Loader */
+    #splashScreen {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: linear-gradient(135deg, #ffffff 0%, #fce4ec 100%);
+      z-index: 1000; display: flex; flex-direction: column; justify-content: center; align-items: center;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    .splash-logo {
+      font-family: 'Playfair Display', serif; font-size: 3.2rem; font-weight: 700;
+      color: var(--deep-rose); font-style: italic; letter-spacing: -0.5px; margin-bottom: 0.5rem;
+    }
+    .splash-sub { font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; color: var(--muted-gray); }
+    .loader-bar { width: 140px; height: 3px; background: var(--soft-rose); margin-top: 1.5rem; border-radius: 3px; overflow: hidden; position: relative; }
+    .loader-bar::after { content: ''; position: absolute; left: -50%; width: 50%; height: 100%; background: var(--deep-rose); animation: loading 1.2s infinite ease-in-out; }
+    @keyframes loading { 0% { left: -50%; } 100% { left: 100%; } }
+
+    /* Header & Stylish Brand Logo */
     header {
-      background: var(--pure-white); padding: 1rem 2rem;
-      position: sticky; top: 0; z-index: 100;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+      background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);
+      padding: 1.1rem 2.5rem; position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+      display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border);
     }
-    .brand { font-size: 1.8rem; font-weight: 700; color: var(--accent-pink); letter-spacing: 1px; }
+    .brand-logo { display: flex; flex-direction: column; cursor: pointer; text-decoration: none; }
+    .brand-title {
+      font-family: 'Playfair Display', serif; font-size: 2.1rem; font-weight: 700;
+      color: var(--deep-rose); font-style: italic; line-height: 1; letter-spacing: -0.5px;
+    }
+    .brand-subtitle { font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 4px; color: var(--muted-gray); margin-top: 2px; }
+
     .nav-actions { display: flex; gap: 1rem; align-items: center; }
     .search-bar {
-      padding: 0.6rem 1rem; border: 1px solid var(--primary-pink);
-      border-radius: 20px; outline: none; width: 220px; background: var(--soft-white);
+      padding: 0.65rem 1.2rem; border: 1px solid var(--glass-border);
+      border-radius: 25px; outline: none; width: 220px; background: var(--soft-white); font-size: 0.9rem;
+      transition: all 0.3s ease;
     }
+    .search-bar:focus { width: 260px; border-color: var(--accent-pink); background: var(--pure-white); }
     .btn {
-      padding: 0.6rem 1.2rem; border: none; border-radius: 20px;
-      cursor: pointer; font-weight: 600; transition: 0.2s ease;
+      padding: 0.65rem 1.4rem; border: none; border-radius: 25px;
+      cursor: pointer; font-weight: 600; font-size: 0.88rem; transition: all 0.3s ease;
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.4rem;
     }
-    .btn-pink { background: var(--accent-pink); color: white; }
-    .btn-pink:hover { background: var(--deep-pink); }
-    .btn-outline { border: 1px solid var(--accent-pink); color: var(--accent-pink); background: transparent; }
+    .btn-pink { background: linear-gradient(135deg, var(--accent-pink), var(--deep-rose)); color: white; box-shadow: var(--shadow-sm); }
+    .btn-pink:hover { transform: translateY(-1px); box-shadow: var(--shadow-lg); opacity: 0.95; }
+    .btn-outline { border: 1px solid var(--accent-pink); color: var(--deep-rose); background: transparent; }
+    .btn-outline:hover { background: var(--primary-pink); }
 
-    /* Layout & Cards */
-    .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
-    .catalog { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+    /* Storefront Layout & Glass Cards */
+    .container { max-width: 1250px; margin: 2.5rem auto; padding: 0 1.5rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--luxury-black); margin-bottom: 1.5rem; font-weight: 700; }
+    .catalog { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 2rem; }
 
     .card {
-      background: var(--pure-white); border-radius: 12px;
-      overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column;
+      background: var(--pure-white); border-radius: 18px; border: 1px solid var(--glass-border);
+      overflow: hidden; box-shadow: var(--shadow-sm); transition: all 0.3s ease; display: flex; flex-direction: column;
     }
-    .card-img-wrapper { position: relative; cursor: pointer; height: 260px; background: var(--gray-light); }
-    .card img { width: 100%; height: 100%; object-fit: cover; }
+    .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+    .card-img-wrapper { position: relative; cursor: pointer; height: 280px; background: var(--primary-pink); overflow: hidden; }
+    .card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+    .card:hover img { transform: scale(1.05); }
     .badge-count {
-      position: absolute; bottom: 8px; right: 8px; background: rgba(0,0,0,0.6);
-      color: white; padding: 2px 8px; border-radius: 10px; font-size: 0.75rem;
+      position: absolute; bottom: 10px; right: 10px; background: rgba(26, 21, 23, 0.75);
+      backdrop-filter: blur(4px); color: white; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 500;
     }
-    .card-body { padding: 1rem; display: flex; flex-direction: column; flex-grow: 1; }
-    .card-title { font-size: 1.1rem; margin-bottom: 0.4rem; color: var(--text-dark); }
-    .card-price { font-weight: 700; color: var(--accent-pink); font-size: 1.2rem; margin-bottom: 0.8rem; }
-    .shades-label { font-size: 0.8rem; text-transform: uppercase; color: #888; margin-bottom: 0.4rem; }
-    .shades-container { display: flex; gap: 0.4rem; margin-bottom: 1rem; flex-wrap: wrap; max-height: 60px; overflow-y: auto; }
+    .card-body { padding: 1.25rem; display: flex; flex-direction: column; flex-grow: 1; }
+    .card-title { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--luxury-black); }
+    .card-price { font-weight: 700; color: var(--deep-rose); font-size: 1.25rem; margin-bottom: 0.8rem; }
+    .shades-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted-gray); margin-bottom: 0.5rem; font-weight: 600; }
+    .shades-container { display: flex; gap: 0.5rem; margin-bottom: 1.2rem; flex-wrap: wrap; max-height: 60px; overflow-y: auto; }
     .shade-swatch {
-      width: 24px; height: 24px; border-radius: 50%; border: 2px solid white;
-      box-shadow: 0 0 3px rgba(0,0,0,0.3); cursor: pointer; transition: 0.1s;
+      width: 22px; height: 22px; border-radius: 50%; border: 2px solid white;
+      box-shadow: 0 0 4px rgba(0,0,0,0.2); cursor: pointer; transition: transform 0.2s ease;
     }
-    .shade-swatch.active { transform: scale(1.25); border-color: var(--accent-pink); }
+    .shade-swatch.active { transform: scale(1.3); border-color: var(--accent-pink); }
 
-    /* Right-Side Admin Menu Drawer */
+    /* Sliding Shopping Cart Drawer */
+    .cart-drawer-overlay {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.4); backdrop-filter: blur(3px); z-index: 400; display: none;
+    }
+    .cart-drawer {
+      position: fixed; top: 0; right: -420px; width: 400px; max-width: 90vw; height: 100vh;
+      background: var(--pure-white); box-shadow: -8px 0 30px rgba(0,0,0,0.1);
+      z-index: 500; transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1); padding: 1.8rem; display: flex; flex-direction: column;
+    }
+    .cart-drawer.open { right: 0; }
+    .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); padding-bottom: 1rem; }
+    .cart-items-list { flex-grow: 1; overflow-y: auto; margin: 1.2rem 0; display: flex; flex-direction: column; gap: 1rem; }
+    .cart-item { display: flex; gap: 1rem; align-items: center; background: var(--soft-white); padding: 0.8rem; border-radius: 12px; border: 1px solid var(--glass-border); }
+    .cart-item img { width: 60px; height: 60px; border-radius: 8px; object-fit: cover; }
+    .cart-item-details { flex-grow: 1; }
+    .cart-item-title { font-size: 0.95rem; font-weight: 600; }
+    .cart-item-shade { font-size: 0.8rem; color: var(--muted-gray); }
+    .cart-item-price { font-weight: 700; color: var(--deep-rose); font-size: 0.95rem; margin-top: 2px; }
+    .cart-footer { border-top: 1px solid var(--glass-border); padding-top: 1.2rem; }
+    .cart-total-row { display: flex; justify-content: space-between; font-weight: 700; font-size: 1.2rem; margin-bottom: 1.2rem; }
+
+    /* Modern Glassmorphic Admin Dashboard & Drawer */
     .admin-drawer-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.4); z-index: 250; display: none;
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.4); backdrop-filter: blur(3px); z-index: 250; display: none;
     }
     .admin-drawer {
-      position: fixed; top: 0; right: -350px; width: 320px; height: 100%;
-      background: var(--pure-white); box-shadow: -4px 0 15px rgba(0,0,0,0.1);
-      z-index: 300; transition: right 0.3s ease; padding: 1.5rem; display: flex; flex-direction: column;
+      position: fixed; top: 0; right: -350px; width: 320px; height: 100vh;
+      background: var(--pure-white); box-shadow: -8px 0 30px rgba(0,0,0,0.1);
+      z-index: 300; transition: right 0.35s ease; padding: 1.8rem; display: flex; flex-direction: column;
     }
     .admin-drawer.open { right: 0; }
-    .drawer-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--gray-light); padding-bottom: 1rem; }
-    .drawer-menu { list-style: none; margin-top: 1.5rem; }
+    .drawer-menu { list-style: none; margin-top: 2rem; }
     .drawer-menu li {
-      padding: 0.8rem 1rem; border-radius: 8px; font-weight: 600; cursor: pointer;
-      margin-bottom: 0.5rem; color: var(--text-dark); transition: 0.2s;
+      padding: 0.9rem 1.2rem; border-radius: 12px; font-weight: 600; cursor: pointer;
+      margin-bottom: 0.6rem; color: var(--luxury-black); transition: all 0.2s; display: flex; align-items: center; gap: 0.8rem;
     }
-    .drawer-menu li:hover, .drawer-menu li.active { background: var(--primary-pink); color: var(--deep-pink); }
+    .drawer-menu li:hover, .drawer-menu li.active { background: var(--primary-pink); color: var(--deep-rose); }
 
-    /* Admin Workspace Section */
     .admin-panel {
-      background: var(--pure-white); border-radius: 12px; padding: 1.5rem;
-      margin-bottom: 2rem; box-shadow: var(--shadow); display: none;
+      background: var(--pure-white); border-radius: 20px; padding: 2rem;
+      margin-bottom: 2.5rem; box-shadow: var(--shadow-lg); border: 1px solid var(--glass-border); display: none;
     }
-    .shade-upload-row {
-      display: grid; grid-template-columns: 40px 1fr 1fr 1fr; gap: 0.5rem;
-      align-items: center; margin-bottom: 0.8rem; background: var(--soft-white); padding: 0.5rem; border-radius: 6px;
+    .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; margin: 1.5rem 0 2rem 0; }
+    .metric-card {
+      background: linear-gradient(135deg, var(--soft-white), #fff5f8); border: 1px solid var(--glass-border);
+      padding: 1.2rem; border-radius: 14px; border-left: 5px solid var(--accent-pink);
     }
-    .color-picker { width: 36px; height: 36px; border: none; background: transparent; cursor: pointer; }
+    .metric-card h4 { font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; color: var(--muted-gray); text-transform: uppercase; }
+    .metric-card p { font-size: 1.6rem; font-weight: 700; color: var(--luxury-black); margin-top: 0.4rem; }
 
-    /* Interactive Lightbox Swiper Modal */
-    .modal-overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; z-index: 200;
+    .shade-upload-row {
+      display: grid; grid-template-columns: 45px 1fr 1.2fr; gap: 0.8rem;
+      align-items: center; margin-bottom: 0.8rem; background: var(--soft-white); padding: 0.8rem; border-radius: 10px; border: 1px solid var(--glass-border);
     }
-    .modal-content { background: white; padding: 2rem; border-radius: 12px; width: 340px; }
+    .color-picker { width: 40px; height: 40px; border: none; background: transparent; cursor: pointer; border-radius: 50%; }
+
+    /* Modals & Lightbox */
+    .modal-overlay {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); display: none; justify-content: center; align-items: center; z-index: 600;
+    }
+    .modal-content { background: white; padding: 2rem; border-radius: 20px; width: 360px; box-shadow: var(--shadow-lg); }
     
     .lightbox-content {
-      background: white; border-radius: 16px; width: 90%; max-width: 480px;
-      overflow: hidden; position: relative; display: flex; flex-direction: column;
+      background: white; border-radius: 24px; width: 92%; max-width: 480px;
+      overflow: hidden; position: relative; display: flex; flex-direction: column; box-shadow: var(--shadow-lg);
     }
-    .swiper-container { position: relative; width: 100%; height: 320px; background: #000; }
+    .swiper-container { position: relative; width: 100%; height: 340px; background: var(--luxury-black); }
     .swiper-container img { width: 100%; height: 100%; object-fit: contain; }
     .swiper-btn {
       position: absolute; top: 50%; transform: translateY(-50%);
-      background: rgba(255,255,255,0.8); border: none; border-radius: 50%;
-      width: 40px; height: 40px; cursor: pointer; font-size: 1.2rem; font-weight: bold;
+      background: rgba(255,255,255,0.85); border: none; border-radius: 50%;
+      width: 42px; height: 42px; cursor: pointer; font-size: 1.2rem; font-weight: bold; color: var(--luxury-black);
+      transition: all 0.2s; display: flex; justify-content: center; align-items: center;
     }
-    .swiper-btn.left { left: 10px; }
-    .swiper-btn.right { right: 10px; }
-    .lightbox-body { padding: 1.2rem; }
+    .swiper-btn:hover { background: white; transform: translateY(-50%) scale(1.1); }
+    .swiper-btn.left { left: 12px; }
+    .swiper-btn.right { right: 12px; }
+    .lightbox-body { padding: 1.5rem; }
     .active-shade-badge {
-      display: inline-block; background: var(--primary-pink); color: var(--deep-pink);
-      padding: 4px 12px; border-radius: 12px; font-weight: 600; font-size: 0.9rem; margin-top: 0.4rem;
+      display: inline-block; background: var(--primary-pink); color: var(--deep-rose);
+      padding: 4px 14px; border-radius: 15px; font-weight: 600; font-size: 0.85rem; margin-top: 0.4rem;
     }
+    
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; margin-bottom: 0.4rem; font-size: 0.85rem; font-weight: 600; color: var(--luxury-black); }
+    .form-control {
+      width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--glass-border);
+      border-radius: 10px; outline: none; background: var(--soft-white); font-size: 0.9rem;
+    }
+    .form-control:focus { border-color: var(--accent-pink); background: white; }
   </style>
 </head>
 <body>
 
+  <!-- Instant Brand Splash Loader (Prevents Unstyled Flash) -->
+  <div id="splashScreen">
+    <div class="splash-logo">Hiba Beauty</div>
+    <div class="splash-sub">LUXURY COSMETICS</div>
+    <div class="loader-bar"></div>
+  </div>
+
+  <!-- Stylish Navigation Header -->
   <header>
-    <div class="brand">Hiba Beauty</div>
+    <a href="#" class="brand-logo">
+      <span class="brand-title">Hiba Beauty</span>
+      <span class="brand-subtitle">PARIS • KARACHI</span>
+    </a>
     <div class="nav-actions">
       <input type="text" class="search-bar" id="searchInput" placeholder="Search catalog..." onkeyup="filterProducts()">
-      <button class="btn btn-outline" onclick="alert('Bag Total: ' + cart.length + ' items')">Cart (<span id="cartCount">0</span>)</button>
+      <button class="btn btn-outline" onclick="toggleCartDrawer()">🛍️ Bag (<span id="cartCount">0</span>)</button>
       <button class="btn btn-pink" onclick="handleAdminAuth()">Admin Portal</button>
       <button class="btn btn-outline" id="menuToggleBtn" style="display:none;" onclick="toggleAdminDrawer()">☰ Menu</button>
     </div>
   </header>
 
-  <!-- Right Side Admin Menu Drawer -->
+  <!-- Sliding Shopping Cart Drawer -->
+  <div class="cart-drawer-overlay" id="cartOverlay" onclick="toggleCartDrawer()"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3 style="font-family:'Playfair Display', serif; font-size: 1.5rem;">Your Shopping Bag</h3>
+      <button class="btn btn-outline" style="padding: 0.2rem 0.6rem; border:none;" onclick="toggleCartDrawer()">✕</button>
+    </div>
+    <div class="cart-items-list" id="cartItemsList">
+      <p style="text-align: center; color: var(--muted-gray); margin-top: 2rem;">Your shopping bag is currently empty.</p>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total-row">
+        <span>Total:</span>
+        <span id="cartTotalAmount" style="color: var(--deep-rose);">Rs. 0</span>
+      </div>
+      <button class="btn btn-pink" style="width: 100%; padding: 0.9rem;" onclick="processCheckout()">Proceed to Checkout</button>
+    </div>
+  </aside>
+
+  <!-- Right-Side Admin Control Navigation Drawer -->
   <div class="admin-drawer-overlay" id="drawerOverlay" onclick="toggleAdminDrawer()"></div>
   <aside class="admin-drawer" id="adminDrawer">
-    <div class="drawer-header">
-      <h3>Admin Control</h3>
-      <button class="btn btn-outline" style="padding: 0.2rem 0.6rem;" onclick="toggleAdminDrawer()">✕</button>
+    <div class="cart-header">
+      <h3 style="font-family:'Playfair Display', serif;">Admin Control</h3>
+      <button class="btn btn-outline" style="padding: 0.2rem 0.6rem; border:none;" onclick="toggleAdminDrawer()">✕</button>
     </div>
     <ul class="drawer-menu">
-      <li class="active" onclick="switchAdminTab('items')">📦 Items / Products</li>
+      <li class="active" onclick="switchAdminTab('items')">📦 Inventory Items</li>
       <li onclick="switchAdminTab('categories')">🏷️ Categories</li>
-      <li onclick="switchAdminTab('orders')">🛒 Orders</li>
+      <li onclick="switchAdminTab('orders')">🛒 Customer Orders</li>
     </ul>
   </aside>
 
   <div class="container">
-    <!-- Admin Portal Dashboard -->
+    <!-- Admin Portal Dashboard Workspace -->
     <section class="admin-panel" id="adminPanel">
-      <h2 id="adminTabTitle">Manage Items & Add Shade Images</h2>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2 id="adminTabTitle" style="font-family:'Playfair Display', serif; font-size: 1.8rem;">Store Inventory & Analytics</h2>
+      </div>
 
-      <!-- Tab 1: Products Form -->
+      <!-- Real-Time Business Performance Metrics -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <h4>TOTAL CATALOG VALUE</h4>
+          <p id="metricRevenue">Rs. 0</p>
+        </div>
+        <div class="metric-card">
+          <h4>TOTAL PRODUCTS</h4>
+          <p id="metricCount">0</p>
+        </div>
+        <div class="metric-card">
+          <h4>COMPLETED ORDERS</h4>
+          <p id="metricOrders">0</p>
+        </div>
+      </div>
+
+      <!-- Tab 1: Product Publishing Form -->
       <div id="tabItems">
-        <form id="productForm" onsubmit="saveProduct(event)" style="margin-top: 1rem;">
-          <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
-            <div class="form-group" style="margin-bottom:1rem;">
-              <label style="font-size:0.85rem; font-weight:600;">Product Title</label>
-              <input type="text" class="form-control" id="prodTitle" required placeholder="e.g. USHAS Glitter">
+        <form id="productForm" onsubmit="saveProduct(event)">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+            <div class="form-group">
+              <label>Product Title</label>
+              <input type="text" class="form-control" id="prodTitle" required placeholder="e.g. USHAS Glitter Collection">
             </div>
-            <div class="form-group" style="margin-bottom:1rem;">
-              <label style="font-size:0.85rem; font-weight:600;">Price in PKR (Rs.)</label>
+            <div class="form-group">
+              <label>Price in PKR (Rs.)</label>
               <input type="number" class="form-control" id="prodPrice" required placeholder="1850">
             </div>
-            <div class="form-group" style="margin-bottom:1rem;">
-              <label style="font-size:0.85rem; font-weight:600;">Category</label>
+            <div class="form-group">
+              <label>Category</label>
               <select class="form-control" id="prodCategory">
                 <option value="Lipstick">Lipstick</option>
                 <option value="Glitter">Glitter</option>
                 <option value="Blush">Blush</option>
+                <option value="Foundation">Foundation</option>
               </select>
             </div>
           </div>
 
-          <label style="font-size:0.9rem; font-weight:600; margin-bottom:0.5rem; display:block;">
-            Pair Images Directly with Shades
+          <label style="font-size:0.9rem; font-weight:600; margin: 1rem 0 0.5rem 0; display:block;">
+            Map Shades to Specific Product Photos
           </label>
           <div id="shadeInputsContainer">
             <div class="shade-upload-row">
-              <input type="color" class="color-picker" value="#e75480">
+              <input type="color" class="color-picker" value="#ec407a">
               <input type="text" class="form-control shade-name-input" placeholder="Shade Name (e.g. Shade 01)">
               <input type="file" class="form-control shade-file-input" accept="image/*" required>
             </div>
           </div>
 
-          <button type="button" class="btn btn-outline" style="padding: 0.3rem 0.8rem; font-size: 0.85rem; margin-bottom: 1rem;" onclick="addShadeRow()">+ Add Next Shade & Photo</button>
+          <button type="button" class="btn btn-outline" style="font-size: 0.85rem; margin-bottom: 1.5rem;" onclick="addShadeRow()">+ Add Next Shade & Photo</button>
           <br>
-          <button type="submit" class="btn btn-pink">Publish Item to Store</button>
+          <button type="submit" class="btn btn-pink" style="padding: 0.8rem 2rem;">Publish Item to Store</button>
         </form>
       </div>
 
-      <!-- Tab 2: Categories View -->
-      <div id="tabCategories" style="display:none; padding-top: 1rem;">
-        <h3>Store Categories</h3>
-        <ul style="margin-top: 0.5rem; padding-left: 1.2rem;">
-          <li>Lipstick</li>
-          <li>Glitter</li>
+      <!-- Tab 2: Store Categories -->
+      <div id="tabCategories" style="display:none;">
+        <h3 style="margin-bottom: 1rem;">Manage Categories</h3>
+        <ul style="padding-left: 1.2rem; line-height: 2;">
+          <li>Lipstick & Glosses</li>
+          <li>Eye Glitters & Palettes</li>
           <li>Blush & Highlighters</li>
+          <li>Velvet Foundations</li>
         </ul>
       </div>
 
-      <!-- Tab 3: Orders View -->
-      <div id="tabOrders" style="display:none; padding-top: 1rem;">
-        <h3>Recent Customer Orders</h3>
-        <p style="color: #666; margin-top: 0.5rem;">No active orders yet.</p>
+      <!-- Tab 3: Orders Portal -->
+      <div id="tabOrders" style="display:none;">
+        <h3 style="margin-bottom: 1rem;">Customer Orders Log</h3>
+        <div id="ordersLogContainer" style="color: var(--muted-gray);">No orders recorded in system.</div>
       </div>
     </section>
 
     <!-- Public Storefront Grid -->
-    <h2>Catalog Highlights</h2>
-    <div class="catalog" id="productGrid" style="margin-top: 1rem;"></div>
+    <h2 class="section-title">Curated Cosmetics</h2>
+    <div class="catalog" id="productGrid"></div>
   </div>
 
-  <!-- Admin Pass Modal -->
+  <!-- Admin Login Modal -->
   <div class="modal-overlay" id="authModal">
     <div class="modal-content">
-      <h3>Admin Access</h3>
-      <div style="margin-top: 1rem;">
+      <h3 style="font-family:'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 0.5rem;">Admin Access</h3>
+      <p style="font-size: 0.85rem; color: var(--muted-gray); margin-bottom: 1.2rem;">Enter password to unlock dashboard management.</p>
+      <div class="form-group">
         <input type="password" class="form-control" id="adminPassInput" placeholder="Password">
       </div>
-      <button class="btn btn-pink" style="width: 100%; margin-top:1rem;" onclick="verifyAdminPassword()">Login</button>
+      <button class="btn btn-pink" style="width: 100%; margin-top:0.5rem;" onclick="verifyAdminPassword()">Login</button>
     </div>
   </div>
 
-  <!-- Lightbox Swiper & Linked Shade Selection Modal -->
+  <!-- Interactive Lightbox & Shade Switcher Modal -->
   <div class="modal-overlay" id="productModal">
     <div class="lightbox-content">
       <div class="swiper-container">
@@ -234,16 +360,16 @@
         <button class="swiper-btn right" onclick="changeImage(1)">&#10095;</button>
       </div>
       <div class="lightbox-body">
-        <h3 id="modalProductTitle"></h3>
+        <h3 id="modalProductTitle" style="font-family:'Playfair Display', serif; font-size: 1.4rem;"></h3>
         <div class="card-price" id="modalProductPrice" style="margin-top: 0.2rem;"></div>
         
-        <div>Current Selected Shade: <span class="active-shade-badge" id="activeShadeLabel">Default</span></div>
+        <div style="font-size: 0.9rem;">Selected Shade: <span class="active-shade-badge" id="activeShadeLabel">Default</span></div>
 
-        <div class="shades-label" style="margin-top: 1rem;">Select or Swipe to Switch Shade</div>
+        <div class="shades-label" style="margin-top: 1.2rem;">Select or Swipe to Switch Shade</div>
         <div class="shades-container" id="modalShadesContainer"></div>
 
-        <div style="display: flex; gap: 0.5rem; margin-top: 1rem;">
-          <button class="btn btn-pink" style="flex: 1;" id="modalAddCartBtn">Add To Cart</button>
+        <div style="display: flex; gap: 0.8rem; margin-top: 1.2rem;">
+          <button class="btn btn-pink" style="flex: 1;" id="modalAddCartBtn">Add To Bag</button>
           <button class="btn btn-outline" onclick="closeProductModal()">Close</button>
         </div>
       </div>
@@ -251,21 +377,30 @@
   </div>
 
   <script>
-    // Initial State Setup with Linked Images and Shades
+    // Smooth Splash Screen Removal
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const splash = document.getElementById('splashScreen');
+        splash.style.opacity = '0';
+        splash.style.visibility = 'hidden';
+      }, 700);
+    });
+
+    // Default Seed Products
     const DEFAULT_PRODUCTS = [
       {
         id: '1',
-        title: 'USHAS Glitter Collection',
+        title: 'USHAS 24-Shade Glitter Collection',
         price: 1850,
         category: 'Glitter',
         items: [
           {
-            shadeName: 'Pink Sparkle',
-            hex: '#ffb6c1',
+            shadeName: 'Rose Diamond',
+            hex: '#ec407a',
             image: 'https://images.unsplash.com/photo-1512496015851-a90fb38ba796?auto=format&fit=crop&w=600&q=80'
           },
           {
-            shadeName: 'Golden Bronze',
+            shadeName: 'Golden Sunset',
             hex: '#e6c280',
             image: 'https://images.unsplash.com/photo-1596462511134-0ce510d47172?auto=format&fit=crop&w=600&q=80'
           }
@@ -273,20 +408,22 @@
       }
     ];
 
-    let storeProducts = JSON.parse(localStorage.getItem('hb_products_v2')) || DEFAULT_PRODUCTS;
+    let storeProducts = JSON.parse(localStorage.getItem('hb_products_v3')) || DEFAULT_PRODUCTS;
     let cart = [];
-    let selectedShades = {};
+    let ordersList = JSON.parse(localStorage.getItem('hb_orders')) || [];
     let activeModalProduct = null;
     let activeImageIndex = 0;
 
     function init() {
-      if (!localStorage.getItem('hb_products_v2')) {
-        localStorage.setItem('hb_products_v2', JSON.stringify(DEFAULT_PRODUCTS));
+      if (!localStorage.getItem('hb_products_v3')) {
+        localStorage.setItem('hb_products_v3', JSON.stringify(DEFAULT_PRODUCTS));
       }
       renderProducts(storeProducts);
+      updateMetrics();
+      renderOrdersLog();
     }
 
-    // Render Storefront Grid
+    // Render Public Grid
     function renderProducts(items) {
       const grid = document.getElementById('productGrid');
       grid.innerHTML = items.map(p => `
@@ -299,7 +436,7 @@
             <div class="card-title">${p.title}</div>
             <div class="card-price">Rs. ${p.price.toLocaleString()}</div>
             
-            <div class="shades-label">Shades Available</div>
+            <div class="shades-label">Available Shades</div>
             <div class="shades-container">
               ${p.items.map((item, idx) => `
                 <div class="shade-swatch ${idx === 0 ? 'active' : ''}" 
@@ -316,7 +453,7 @@
       `).join('');
     }
 
-    // Interactive Lightbox Swiper & Dynamic Shade Selector
+    // Interactive Lightbox Modal
     function openProductModal(productId, initialIndex = 0) {
       activeModalProduct = storeProducts.find(p => p.id === productId);
       activeImageIndex = initialIndex;
@@ -333,7 +470,6 @@
       document.getElementById('activeModalImage').src = currentItem.image;
       document.getElementById('activeShadeLabel').innerText = currentItem.shadeName;
 
-      // Render Swatches in Modal
       const container = document.getElementById('modalShadesContainer');
       container.innerHTML = activeModalProduct.items.map((item, idx) => `
         <div class="shade-swatch ${idx === activeImageIndex ? 'active' : ''}" 
@@ -344,9 +480,10 @@
       `).join('');
 
       document.getElementById('modalAddCartBtn').onclick = () => {
-        cart.push({ title: activeModalProduct.title, price: activeModalProduct.price, shade: currentItem.shadeName });
-        document.getElementById('cartCount').innerText = cart.length;
-        alert(`Added ${activeModalProduct.title} (${currentItem.shadeName}) to your bag!`);
+        cart.push({ title: activeModalProduct.title, price: activeModalProduct.price, shade: currentItem.shadeName, image: currentItem.image });
+        updateCartUI();
+        closeProductModal();
+        toggleCartDrawer();
       };
     }
 
@@ -369,7 +506,61 @@
       document.getElementById('productModal').style.display = 'none';
     }
 
-    // Admin Access & Menu Control
+    // Shopping Cart Drawer Controls
+    function toggleCartDrawer() {
+      const drawer = document.getElementById('cartDrawer');
+      const overlay = document.getElementById('cartOverlay');
+      drawer.classList.toggle('open');
+      overlay.style.display = drawer.classList.contains('open') ? 'block' : 'none';
+    }
+
+    function updateCartUI() {
+      document.getElementById('cartCount').innerText = cart.length;
+      const list = document.getElementById('cartItemsList');
+      
+      if (cart.length === 0) {
+        list.innerHTML = `<p style="text-align: center; color: var(--muted-gray); margin-top: 2rem;">Your shopping bag is currently empty.</p>`;
+        document.getElementById('cartTotalAmount').innerText = `Rs. 0`;
+        return;
+      }
+
+      list.innerHTML = cart.map((item, idx) => `
+        <div class="cart-item">
+          <img src="${item.image}" alt="${item.title}">
+          <div class="cart-item-details">
+            <div class="cart-item-title">${item.title}</div>
+            <div class="cart-item-shade">Shade: ${item.shade}</div>
+            <div class="cart-item-price">Rs. ${item.price.toLocaleString()}</div>
+          </div>
+          <button class="btn btn-outline" style="padding: 0.2rem 0.5rem; border:none;" onclick="removeFromCart(${idx})">✕</button>
+        </div>
+      `).join('');
+
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      document.getElementById('cartTotalAmount').innerText = `Rs. ${total.toLocaleString()}`;
+    }
+
+    function removeFromCart(index) {
+      cart.splice(index, 1);
+      updateCartUI();
+    }
+
+    function processCheckout() {
+      if (cart.length === 0) return alert('Your cart is empty.');
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      const newOrder = { id: Date.now().toString(), items: [...cart], total: total, date: new Date().toLocaleDateString() };
+      ordersList.push(newOrder);
+      localStorage.setItem('hb_orders', JSON.stringify(ordersList));
+      
+      cart = [];
+      updateCartUI();
+      toggleCartDrawer();
+      updateMetrics();
+      renderOrdersLog();
+      alert('Thank you for your order with Hiba Beauty!');
+    }
+
+    // Admin Access & Menu Controls
     function handleAdminAuth() {
       if (sessionStorage.getItem('hb_admin_authed') === 'true') {
         toggleAdminPanel();
@@ -385,7 +576,7 @@
         document.getElementById('authModal').style.display = 'none';
         toggleAdminPanel();
       } else {
-        alert('Invalid password.');
+        alert('Invalid authentication password.');
       }
     }
 
@@ -408,7 +599,7 @@
       document.getElementById('tabCategories').style.display = tabName === 'categories' ? 'block' : 'none';
       document.getElementById('tabOrders').style.display = tabName === 'orders' ? 'block' : 'none';
       
-      const titles = { items: 'Manage Items & Shades', categories: 'Store Categories', orders: 'Customer Orders' };
+      const titles = { items: 'Manage Inventory & Shades', categories: 'Store Categories', orders: 'Customer Orders Log' };
       document.getElementById('adminTabTitle').innerText = titles[tabName];
       toggleAdminDrawer();
     }
@@ -418,14 +609,13 @@
       const div = document.createElement('div');
       div.className = 'shade-upload-row';
       div.innerHTML = `
-        <input type="color" class="color-picker" value="#e75480">
+        <input type="color" class="color-picker" value="#ec407a">
         <input type="text" class="form-control shade-name-input" placeholder="Shade Name">
         <input type="file" class="form-control shade-file-input" accept="image/*" required>
       `;
       container.appendChild(div);
     }
 
-    // Process & Publish Product with Linked Shades + Images
     function saveProduct(e) {
       e.preventDefault();
       const title = document.getElementById('prodTitle').value;
@@ -452,19 +642,40 @@
       Promise.all(promises).then(items => {
         const newProduct = { id: Date.now().toString(), title, price, category, items };
         storeProducts.push(newProduct);
-        localStorage.setItem('hb_products_v2', JSON.stringify(storeProducts));
+        localStorage.setItem('hb_products_v3', JSON.stringify(storeProducts));
         renderProducts(storeProducts);
+        updateMetrics();
         
         document.getElementById('productForm').reset();
         document.getElementById('shadeInputsContainer').innerHTML = `
           <div class="shade-upload-row">
-            <input type="color" class="color-picker" value="#e75480">
+            <input type="color" class="color-picker" value="#ec407a">
             <input type="text" class="form-control shade-name-input" placeholder="Shade Name (e.g. Shade 01)">
             <input type="file" class="form-control shade-file-input" accept="image/*" required>
           </div>
         `;
-        alert('Product with mapped shades and images published successfully!');
+        alert('Item successfully added to catalog!');
       });
+    }
+
+    function updateMetrics() {
+      const totalVal = storeProducts.reduce((sum, p) => sum + p.price, 0);
+      document.getElementById('metricRevenue').innerText = `Rs. ${totalVal.toLocaleString()}`;
+      document.getElementById('metricCount').innerText = storeProducts.length;
+      document.getElementById('metricOrders').innerText = ordersList.length;
+    }
+
+    function renderOrdersLog() {
+      const container = document.getElementById('ordersLogContainer');
+      if (ordersList.length === 0) {
+        container.innerHTML = 'No active orders yet.';
+        return;
+      }
+      container.innerHTML = ordersList.map(o => `
+        <div style="background: var(--soft-white); padding: 0.8rem; border-radius: 8px; margin-bottom: 0.5rem; border: 1px solid var(--glass-border);">
+          <strong>Order #${o.id.slice(-4)}</strong> - Rs. ${o.total.toLocaleString()} (${o.items.length} items) [${o.date}]
+        </div>
+      `).join('');
     }
 
     function filterProducts() {
